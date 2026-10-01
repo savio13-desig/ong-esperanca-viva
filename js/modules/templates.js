@@ -6,12 +6,19 @@ export const esc = (texto) => String(texto).replace(/[&<>"']/g, (c) => (
   { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]
 ));
 
-const imagem = (nome, alt, largura, altura, extra = '') =>
-  `<picture><source srcset="../imagens/${nome}.webp" type="image/webp"><img src="../imagens/${nome}.jpg" alt="${alt}" width="${largura}" height="${altura}" ${extra}></picture>`;
+// Imagens responsivas: WebP com fallback JPG, em duas resoluções (srcset + sizes).
+// O navegador escolhe o arquivo pela largura da viewport e pela densidade de pixels.
+const SIZES_CARTAO = '(min-width: 1600px) 375px, (min-width: 1280px) 320px, (min-width: 1024px) 280px, (min-width: 768px) 45vw, 100vw';
+const SIZES_HERO = '(min-width: 1024px) 960px, 100vw';
+
+const imagem = (nome, alt, largura, altura, menor, sizes, extra = '') => `<picture>
+<source type="image/webp" srcset="../imagens/${nome}-${menor}.webp ${menor}w, ../imagens/${nome}.webp ${largura}w" sizes="${sizes}">
+<img src="../imagens/${nome}.jpg" srcset="../imagens/${nome}-${menor}.jpg ${menor}w, ../imagens/${nome}.jpg ${largura}w" sizes="${sizes}" alt="${alt}" width="${largura}" height="${altura}" ${extra}>
+</picture>`;
 
 export const cartaoProjeto = (p) => `
 <article class="col-12 col-md-6 col-lg-4">
-${imagem(p.imagem, p.alt, 600, 400, 'loading="lazy"')}
+${imagem(p.imagem, p.alt, 600, 400, 300, SIZES_CARTAO, 'loading="lazy"')}
 <h3>${esc(p.titulo)}</h3>
 <p>${esc(p.texto)}</p>
 </article>`;
@@ -20,7 +27,7 @@ export const telaInicio = () => `
 <section id="apresentacao">
 <h1>ONG Esperança Viva</h1>
 <p>Transformamos vidas por meio de educação, alimentação e cultura em comunidades da zona sul de São Paulo.</p>
-${imagem('voluntarios-oficina', 'Ilustração de formas em tons de verde e laranja que representa a oficina de voluntários', 1200, 675)}
+${imagem('voluntarios-oficina', 'Ilustração de formas em tons de verde e laranja que representa a oficina de voluntários', 1200, 675, 600, SIZES_HERO)}
 </section>
 <div class="grid-12">
 <section class="col-12 col-md-6">
