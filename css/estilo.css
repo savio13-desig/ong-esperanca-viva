@@ -274,6 +274,20 @@ dialog form { display: flex; gap: var(--esp-2); justify-content: flex-end; }
 .lista-cadastros li { margin-bottom: var(--esp-2); padding: var(--esp-3); background: var(--superficie); border-left: 4px solid var(--cor-primaria); }
 main:focus { outline: none; }
 
+/* Link para pular o menu: aparece só quando recebe o foco do teclado */
+.pular {
+  position: absolute;
+  top: -4rem;
+  left: var(--esp-3);
+  z-index: 10;
+  padding: var(--esp-2) var(--esp-3);
+  background: var(--neutro-900);
+  color: var(--neutro-200);
+  text-decoration: none;
+  transition: top 0.2s;
+}
+.pular:focus { top: var(--esp-2); }
+
 /* Sistema de 12 colunas (Grid) - mobile-first */
 .grid-12 {
   display: grid;

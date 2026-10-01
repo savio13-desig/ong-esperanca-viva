@@ -22,7 +22,8 @@ const rotas = {
 const app = () => document.getElementById('app');
 const caminhoAtual = () => location.hash.replace(/^#/, '') || '/';
 
-export function renderizar() {
+// moverFoco é falso só no carregamento inicial, para o link "Pular para o conteúdo" ser o primeiro Tab
+export function renderizar(moverFoco = true) {
   const caminho = caminhoAtual();
   const rota = rotas[caminho];
 
@@ -35,12 +36,14 @@ export function renderizar() {
   });
 
   rota?.aoCarregar?.();
-  // Acessibilidade: leva o foco ao conteúdo novo e volta ao topo
-  app().focus({ preventScroll: true });
-  window.scrollTo(0, 0);
+  // Acessibilidade: nas trocas de tela, leva o foco ao conteúdo novo e volta ao topo
+  if (moverFoco) {
+    app().focus({ preventScroll: true });
+    window.scrollTo(0, 0);
+  }
 }
 
 export function iniciarRotas() {
-  window.addEventListener('hashchange', renderizar);
-  renderizar();
+  window.addEventListener('hashchange', () => renderizar(true));
+  renderizar(false);
 }
