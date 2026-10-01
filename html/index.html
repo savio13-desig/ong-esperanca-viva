@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ONG Esperança Viva</title>
+<link rel="stylesheet" href="../css/estilo.css">
+</head>
+<body>
+<header>
+<picture><source srcset="../imagens/logo.webp" type="image/webp"><img src="../imagens/logo.png" alt="Logotipo da ONG Esperança Viva" width="120" height="60"></picture>
+<nav aria-label="Principal">
+<button type="button" class="menu-botao" aria-expanded="false" aria-controls="menu" aria-label="Abrir ou fechar o menu">&#9776;</button>
+<ul class="menu" id="menu">
+<li><a href="#/" data-rota="/">Início</a></li>
+<li class="tem-sub"><a href="#/projetos" data-rota="/projetos">Projetos</a>
+<ul class="submenu">
+<li><a href="#/projetos">Todos os projetos</a></li>
+<li><a href="#/cadastro">Seja voluntário</a></li>
+</ul>
+</li>
+<li><a href="#/cadastro" data-rota="/cadastro">Cadastro</a></li>
+<li><a href="#/voluntarios" data-rota="/voluntarios">Cadastrados</a></li>
+</ul>
+</nav>
+</header>
+<main id="app" tabindex="-1">
+<noscript><p>Ative o JavaScript para usar este site.</p></noscript>
+</main>
+<footer>
+<p>&copy; 2026 ONG Esperança Viva. Todos os direitos reservados.</p>
+</footer>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script type="module" src="../js/main.js"></script>
+</body>
+</html>
