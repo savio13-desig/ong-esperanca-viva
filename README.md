@@ -24,8 +24,9 @@ Site institucional **fictício** de uma ONG, construído como Single Page Applic
 - Um navegador atual (Chrome, Firefox ou Edge).
 - [Git](https://git-scm.com/) para clonar o repositório.
 - [Python 3](https://www.python.org/) (ou qualquer servidor HTTP estático) para servir os arquivos localmente.
+- [Node.js](https://nodejs.org/) 18 ou superior, apenas para gerar o build de produção.
 
-Não há dependências para instalar: o projeto não usa `npm` nem etapa de build.
+O código-fonte não tem dependências de execução. As dependências de desenvolvimento (`esbuild` e `html-minifier-terser`) servem só ao build.
 
 ## Instalação e execução local
 
@@ -39,11 +40,24 @@ python -m http.server 8000
 
 Depois, abra `http://localhost:8000/` no navegador. A raiz redireciona para `html/index.html`.
 
+### Build de produção
+
+```bash
+npm install
+npm run build      # gera a pasta dist/ minificada
+npm run preview    # serve a dist/ em http://localhost:8000
+```
+
+O build usa o [esbuild](https://esbuild.github.io/) para juntar os módulos ES em um único `main.js` e minificar JS e CSS, e o `html-minifier-terser` para o HTML. As imagens (já em WebP e JPG/PNG) são copiadas. O script `scripts/build.mjs` imprime a redução de tamanho de cada grupo. Resultado atual: JS -35,9%, CSS -25,3%, HTML -3,1% (total -29,2% em bytes brutos), e 1 requisição de JS em vez de 9.
+
 ## Estrutura de pastas
 
 ```
 /
 ├── index.html            Redireciona a raiz para html/index.html
+├── package.json          Scripts de build e dependências de desenvolvimento
+├── scripts/
+│   └── build.mjs         Build de produção (gera dist/, ignorada pelo Git)
 ├── html/
 │   └── index.html        Documento único da SPA
 ├── css/
@@ -64,7 +78,7 @@ Depois, abra `http://localhost:8000/` no navegador. A raiz redireciona para `htm
 
 ## Testes e validação
 
-Não há framework de testes automatizados. A qualidade é verificada assim:
+Não há framework de testes automatizados, e o build não executa testes. A qualidade é verificada assim:
 
 ```bash
 # Verificar a sintaxe dos módulos JavaScript (requer Node.js)

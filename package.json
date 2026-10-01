@@ -1,0 +1,15 @@
+{
+  "name": "ong-esperanca-viva",
+  "version": "1.0.1",
+  "private": true,
+  "type": "module",
+  "description": "Site institucional fictício de uma ONG (SPA em Vanilla JS)",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "preview": "python -m http.server 8000 --directory dist"
+  },
+  "devDependencies": {
+    "esbuild": "^0.28.2",
+    "html-minifier-terser": "^7.2.0"
+  }
+}
