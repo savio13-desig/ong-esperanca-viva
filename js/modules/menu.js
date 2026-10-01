@@ -17,3 +17,11 @@ export function iniciarMenu() {
     if (e.target.closest('a')) definir(false);
   });
 }
+
+// Link "Pular para o conteúdo": leva o foco ao <main> sem alterar o hash, que pertence ao roteador
+export function iniciarLinkPular() {
+  document.querySelector('.pular').addEventListener('click', (e) => {
+    e.preventDefault();
+    document.getElementById('app').focus();
+  });
+}
