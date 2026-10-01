@@ -50,12 +50,18 @@ npm run preview    # serve a dist/ em http://localhost:8000
 
 O build usa o [esbuild](https://esbuild.github.io/) para juntar os módulos ES em um único `main.js` e minificar JS e CSS, e o `html-minifier-terser` para o HTML. As imagens (já em WebP e JPG/PNG) são copiadas. O script `scripts/build.mjs` imprime a redução de tamanho de cada grupo. Resultado atual: JS -35,9%, CSS -25,3%, HTML -3,1% (total -29,2% em bytes brutos), e 1 requisição de JS em vez de 9.
 
+## Deploy
+
+O deploy é feito no **GitHub Pages** por um workflow do GitHub Actions (`.github/workflows/deploy.yml`). A cada `push` na branch `main`, ele instala as dependências (`npm ci`), gera o build (`npm run build`) e publica a pasta `dist/`. Para ativar, em **Settings > Pages**, escolha **GitHub Actions** como fonte. Os caminhos do projeto são relativos, então o site funciona na URL de projeto do Pages (`https://<usuario>.github.io/<repositorio>/`).
+
 ## Estrutura de pastas
 
 ```
 /
 ├── index.html            Redireciona a raiz para html/index.html
 ├── package.json          Scripts de build e dependências de desenvolvimento
+├── .github/workflows/
+│   └── deploy.yml        CI/CD: build e publicação no GitHub Pages
 ├── scripts/
 │   └── build.mjs         Build de produção (gera dist/, ignorada pelo Git)
 ├── html/
